@@ -12,19 +12,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { signOut, useSession } from "next-auth/react";
 
 function UserButton() {
+  const { data: session } = useSession();
   const { setTheme, resolvedTheme } = useTheme();
   const isDarkTheme = resolvedTheme === "dark";
   const toggleTheme = () => setTheme(isDarkTheme ? "light" : "dark");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           {/* Change to user image after Auth */}
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={session?.user?.image!} />
+            <AvatarFallback>{session?.user?.name!}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -32,12 +35,10 @@ function UserButton() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {/* {user.name} */}
-              John Doe
+              {session?.user?.name!}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {/* {user.email} */}
-              johndoe@gmail.com
+              {session?.user?.email!}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -53,9 +54,7 @@ function UserButton() {
               )}
             </DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <a href="/api/auth/logout">Log out</a>
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signOut()}>Log out</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
