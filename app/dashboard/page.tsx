@@ -3,11 +3,10 @@ import Hero from "@/components/hero";
 
 export default function Dashboard() {
   return (
-    <main className="flex flex-col min-h-screen pt-36 px-24">
+    <main className="flex flex-col min-h-screen px-24">
       <Hero />
-      <div className="flex justify-center">
-        <BentoGrid />
-      </div>
+
+      <BentoGrid />
     </main>
   );
 }

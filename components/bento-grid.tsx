@@ -11,7 +11,7 @@ type Props = {};
 
 function BentoGrid({}: Props) {
   return (
-    <div className="flex mx-auto">
+    <div className="p-5 justify-between">
       <div className="grid grid-cols-6 grid-rows-4 gap-4">
         <Card className="bg-card flex flex-col p-6 border border-border rounded-3xl gap-1 col-span-4 row-span-2">
           <CardHeader>
